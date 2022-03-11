@@ -65,7 +65,7 @@ class ArucoMarkerDetector():
         Return a translation and rotation vector for the aruo marker."""
         _, _, _, rvecs, tvecs, _ = self.detectMarkerFull()
         if len(rvecs) > 0 and len(tvecs) > 0:
-            return rvecs[0], tvecs[0]
+            return rvecs[0][0], tvecs[0][0]
         else:
             logging.warning("No marker detected. Returning (None, None)")
             return None, None
@@ -76,7 +76,7 @@ class ArucoMarkerDetector():
         is detected. Otherwise, return None"""
         _, tvec = self.detectMarkerPose()
         if tvec is not None:
-            return np.array([tvec[0], -tvec[1] + 20])
+            return np.array([tvec[0]+1, -tvec[1] + 20])
         else:
             return None
 
@@ -93,7 +93,6 @@ if __name__ == "__main__":
     # Run detector
     detector = ArucoMarkerDetector(camera_stream=0, visualize_results=True)
     while True:
-        rot, trans = detector.detectMarkerXYPosition()
-        print(f"Rotation: {rot}")
-        print(f"Rotation: {trans}")
+        xypos = detector.detectMarkerXYPosition()
+        print("Position: {}".format(xypos))
 

@@ -91,7 +91,9 @@ if __name__ == "__main__":
         datefmt="%H:%M:%S")
 
     # Run detector
-    detector = ArucoMarkerDetector(camera_stream=2, visualize_results=True)
+    detector = ArucoMarkerDetector(camera_stream=0, visualize_results=True)
     while True:
-        detector.detectMarkerXYPosition()
+        rot, trans = detector.detectMarkerXYPosition()
+        print(f"Rotation: {rot}")
+        print(f"Rotation: {trans}")
 
